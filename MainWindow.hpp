@@ -1,10 +1,13 @@
-#ifndef MAINWINDOW_HPP
-#define MAINWINDOW_HPP
+// Copyright (c) 2016-2017 All Rights Reserved WestBot
+
+#ifndef WESTBOT_MAINWINDOW_HPP
+#define WESTBOT_MAINWINDOW_HPP
 
 #include <QMainWindow>
 
-namespace Ui {
-class MainWindow;
+namespace Ui
+{
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -26,4 +29,4 @@ private:
     Ui::MainWindow *ui;
 };
 
-#endif // MAINWINDOW_HPP
+#endif // WESTBOT_MAINWINDOW_HPP

@@ -1,3 +1,5 @@
+// Copyright (c) 2016-2017 All Rights Reserved WestBot
+
 #include <QDebug>
 
 #include "MainWindow.hpp"
@@ -31,18 +33,6 @@ void MainWindow::on_sendCommandButton_clicked()
     // Format
     // Send
     // Handle response
-
-    /*
-    void sendMessage(QString msgToSend){
-    QByteArray l_vDataToBeSent;
-    QDataStream l_vStream(&l_vDataToBeSent, QIODevice::WriteOnly);
-    l_vStream.setByteOrder(QDataStream::LittleEndian);
-    l_vStream << msgToSend.length();
-    l_vDataToBeSent.append(msgToSend);
-
-    m_pTcpSocket->write(l_vDataToBeSent, l_vDataToBeSent.length());
-    }
-    */
 }
 
 void MainWindow::on_saveButton_clicked()

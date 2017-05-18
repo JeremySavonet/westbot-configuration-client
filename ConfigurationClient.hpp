@@ -1,5 +1,9 @@
-#ifndef CONFIGURATIONCLIENT_HPP
-#define CONFIGURATIONCLIENT_HPP
+// Copyright (c) 2016-2017 All Rights Reserved WestBot
+
+#ifndef WESTBOT_CONFIGURATIONCLIENT_HPP
+#define WESTBOT_CONFIGURATIONCLIENT_HPP
+
+#include <QTcpSocket>
 
 class QString;
 
@@ -11,11 +15,14 @@ public:
     ConfigurationClient();
 
     bool connect( const QString& ip );
+    void disconnect();
+
+    void send( const QString& message );
 
 private:
-    bool _isConnected;
+    QTcpSocket _clientSocket;
 };
 
 }
 
-#endif // CONFIGURATIONCLIENT_HPP
+#endif // WESTBOT_CONFIGURATIONCLIENT_HPP
