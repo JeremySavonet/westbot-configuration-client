@@ -1,0 +1,1 @@
+# westbot-configuration-client
