@@ -5,6 +5,8 @@
 
 #include <QMainWindow>
 
+#include <ConfigurationClient.hpp>
+
 namespace Ui
 {
     class MainWindow;
@@ -27,6 +29,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    WestBot::ConfigurationClient _client;
 };
 
 #endif // WESTBOT_MAINWINDOW_HPP
