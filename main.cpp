@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2017 All Rights Reserved WestBot
+// Copyright (c) 2017 All Rights Reserved WestBot
 
 #include "MainWindow.hpp"
 #include <QApplication>

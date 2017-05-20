@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2017 All Rights Reserved WestBot
+// Copyright (c) 2017 All Rights Reserved WestBot
 
 #ifndef WESTBOT_MAINWINDOW_HPP
 #define WESTBOT_MAINWINDOW_HPP
@@ -28,6 +28,9 @@ private slots:
     void on_ipAddressTxt_textChanged( const QString& arg1 );
 
 private:
+    void displayConnected();
+    void displayDisconnected();
+
     Ui::MainWindow *ui;
     WestBot::ConfigurationClient _client;
 };

@@ -8,16 +8,26 @@
 #include "MainWindow.hpp"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow( QWidget* parent )
+    : QMainWindow( parent )
+    , ui( new Ui::MainWindow )
     , _client( this )
 {
-    ui->setupUi(this);
+    ui->setupUi( this );
 
-    ui->sendCommandButton->setEnabled( false );
-    ui->cliCommandTxt->setEnabled( false );
-    ui->cliDebugTxt->setEnabled( false );
+    connect(
+        & _client,
+        & WestBot::ConfigurationClient::connected,
+        this,
+        & MainWindow::displayConnected );
+
+    connect(
+        & _client,
+        & WestBot::ConfigurationClient::disconnected,
+        this,
+        & MainWindow::displayDisconnected );
+
+    displayDisconnected();
 }
 
 MainWindow::~MainWindow()
@@ -29,35 +39,18 @@ void MainWindow::on_connectButton_clicked()
 {
     if( _client.isConnected() )
     {
-        _client.disconnect();
-
-        if( ! _client.isConnected() )
-        {
-            ui->connectButton->setText( "Connect" );
-            ui->ipAddressTxt->setEnabled( true );
-
-            ui->sendCommandButton->setEnabled( false );
-            ui->cliCommandTxt->setEnabled( false );
-            ui->cliDebugTxt->setEnabled( false );
-        }
-
+        _client.disconnectFrom();
         return;
     }
 
     qDebug() << "Open tcp connection to";
-    _client.connect( ui->ipAddressTxt->text() );
+    _client.connectTo( ui->ipAddressTxt->text() );
 
     if( ! _client.isConnected() )
     {
         qDebug() << "Failed to connect to Robot";
         return;
     }
-
-    ui->connectButton->setText( "Disconnect" );
-    ui->ipAddressTxt->setEnabled( false );
-    ui->sendCommandButton->setEnabled( true );
-    ui->cliCommandTxt->setEnabled( true );
-    ui->cliDebugTxt->setEnabled( true );
 }
 
 void MainWindow::on_sendCommandButton_clicked()
@@ -98,4 +91,23 @@ void MainWindow::on_loadButton_clicked()
 void MainWindow::on_ipAddressTxt_textChanged( const QString& arg1 )
 {
     qDebug() << "Text changed to" << arg1;
+}
+
+// Private methods
+void MainWindow::displayConnected()
+{
+    ui->connectButton->setText( "Disconnect" );
+    ui->ipAddressTxt->setEnabled( false );
+    ui->sendCommandButton->setEnabled( true );
+    ui->cliCommandTxt->setEnabled( true );
+    ui->cliDebugTxt->setEnabled( true );
+}
+
+void MainWindow::displayDisconnected()
+{
+    ui->connectButton->setText( "Connect" );
+    ui->ipAddressTxt->setEnabled( true );
+    ui->sendCommandButton->setEnabled( false );
+    ui->cliCommandTxt->setEnabled( false );
+    ui->cliDebugTxt->setEnabled( false );
 }

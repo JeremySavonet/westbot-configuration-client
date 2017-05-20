@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2017 All Rights Reserved WestBot
+// Copyright (c) 2017 All Rights Reserved WestBot
 
 #ifndef WESTBOT_CONFIGURATIONCLIENT_HPP
 #define WESTBOT_CONFIGURATIONCLIENT_HPP
@@ -13,16 +13,22 @@ namespace WestBot {
 
 class ConfigurationClient : public QObject
 {
+    Q_OBJECT
+
 public:
     ConfigurationClient( QObject* parent = nullptr );
     ~ConfigurationClient() override = default;
 
-    bool connect( const QString& ip );
-    void disconnect();
+    bool connectTo( const QString& ip );
+    void disconnectFrom();
 
     void send( const QByteArray& message );
 
     bool isConnected() const;
+
+signals:
+    void connected();
+    void disconnected();
 
 private:
     void handleStateChange( QAbstractSocket::SocketState state );

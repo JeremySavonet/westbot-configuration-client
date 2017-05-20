@@ -11,14 +11,14 @@ ConfigurationClient::ConfigurationClient( QObject* parent )
     : QObject( parent )
     , _isConnected( false )
 {
-    QObject::connect(
+    connect(
         & _clientSocket,
         & QAbstractSocket::stateChanged,
         this,
         & ConfigurationClient::handleStateChange );
 }
 
-bool ConfigurationClient::connect( const QString& ip )
+bool ConfigurationClient::connectTo( const QString& ip )
 {
     _clientSocket.connectToHost( ip, 57497 );
 
@@ -32,7 +32,7 @@ bool ConfigurationClient::connect( const QString& ip )
     return _isConnected;
 }
 
-void ConfigurationClient::disconnect()
+void ConfigurationClient::disconnectFrom()
 {
     _clientSocket.disconnectFromHost();
     _isConnected = false;
@@ -54,10 +54,12 @@ void ConfigurationClient::handleStateChange( QAbstractSocket::SocketState state 
 {
     if( state == QAbstractSocket::ConnectedState )
     {
+        emit ConfigurationClient::connected();
         _isConnected = true;
     }
     else
     {
+        emit ConfigurationClient::disconnected();
         _isConnected = false;
     }
 }
